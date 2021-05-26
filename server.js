@@ -1,21 +1,46 @@
 const express = require("express");
 const app = express();
+const banco = require("./dados.mock.json");
+
+app.use(express.json());
+
 // CRUD - CREATE READ UPDATE DELETE
-app.get( "/api/materia/:id", function( req, res){
-    res.json({
-        aula: "Desenvolvimento de Sistemas WEB",
-        turma: "INF32B",
-        professor: "Mayck Wazowski Cipriano"
-    });
+app.get( "/api/colecoes", function( req, res){
+    res.json( banco.colecoes );
 } );
 
-//app.delete
-/*
-post
-get
-put
-delete
-*/
+app.get( "/api/colecoes/:id", function( req, res){
+    const { id } = req.params;
+    const colecao = banco.colecoes.find( col => col.colecaoId == id );
+
+    if( !colecao ) res.status(204).json();
+
+    res.json( colecao );
+} );
+
+app.get( "/api/colecoesSalvar", function( req, res){
+    const colecaoId = banco.seqColecaoId++;
+    const descricao = "teste";
+    const publico = false;
+
+    banco.colecoes.push({ colecaoId, descricao, publico });
+
+    // salvar
+
+    // console.log( banco );
+    res.json( banco.colecoes );
+} );
+
+
+app.post( "/api/colecoes", function( req, res){
+    const { descricao, publico } = req.body;
+    const colecaoId = banco.seqColecaoId++;
+
+    // salvar
+
+    res.json( colecao );
+} );
+
 
 app.listen( 3000, function(){
     console.log('Server rodando');
