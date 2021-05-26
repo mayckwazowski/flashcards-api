@@ -18,20 +18,6 @@ app.get( "/api/colecoes/:id", function( req, res){
     res.json( colecao );
 } );
 
-app.get( "/api/colecoesSalvar", function( req, res){
-    const colecaoId = banco.seqColecaoId++;
-    const descricao = "teste";
-    const publico = false;
-
-    banco.colecoes.push({ colecaoId, descricao, publico });
-
-    // salvar
-
-    // console.log( banco );
-    res.json( banco.colecoes );
-} );
-
-
 app.post( "/api/colecoes", function( req, res){
     const { descricao, publico } = req.body;
     const colecaoId = banco.seqColecaoId++;
