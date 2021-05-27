@@ -27,7 +27,6 @@ app.post( "/api/colecoes", function( req, res){
     res.json( colecao );
 } );
 
-
 app.listen( 3000, function(){
     console.log('Server rodando');
 } );
