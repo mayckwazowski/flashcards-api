@@ -24,7 +24,7 @@ app.get( "/api/colecoes/:id", function( req, res){
 // identificado pela parâmetro id.
 app.get( "/api/colecoes/flashcards/:id", function( req, res){
     const { id } = req.params;
-    const flashcard = banco.selecionaFlashCard( id );
+    const flashcard = banco.selecionaFlashCardsDaColecao( id );
 
     if( !flashcard ) res.status(204).json();
 
@@ -40,61 +40,27 @@ app.get( "/api/flashcards/:id", function( req, res){
 
     res.json( flashcard );
 } );
+/**
+GET /api/colecoes - Esse endpoint deverá listar todas as coleções do sistema.
 
-// POST /api/colecoes - Esse endpoint deverá criar uma nova coleção com os dados enviada pelo client, por meio do body. 
-app.post( "/api/colecoes", function( req, res ){
-    const { descricao, publico } = req.body;
-    banco.salvar( { descricao, publico } );
-    res.json( { descricao, publico } );
-} );
+GET /api/colecoes/:id - Esse endpoint deverá retornar os dados da coleção selecionada pelo parâmetro id.
 
-// PUT /api/colecoes/:id - Esse endpoint deverá selecionar uma coleção, por meio do parâmetro id, e atualizar a mesma com os dados enviados pelo valores enviados por meio do body.
-app.put( "/api/colecoes", function( req, res ){
-    const { colecaoId, descricao, publico } = req.body;
-    banco.salvar( { colecaoId, descricao, publico } );
+GET /api/colecoes/flashcards/:id- Esse endpoint deverá listar todos os flashcards da coleção passada pelo endereço, identificado pela parâmetro id.
 
-    const colecao = banco.selecionaColecao( colecaoId );
+POST /api/colecoes - Esse endpoint deverá criar uma nova coleção com os dados enviada pelo client, por meio do body.
 
-    if( !colecao ) res.status(204).json();
+PUT /api/colecoes/:id - Esse endpoint deverá selecionar uma coleção, por meio do parâmetro id, e atualizar a mesma com os dados enviados pelo valores enviados por meio do body.
 
-    res.json( colecao );
-} );
+DELETE /api/colecoes/:id - Esse endpoint deverá selecionar uma coleção, por meio do parâmetro id, e excluir o registro na base de dados.
 
-// DELETE /api/colecoes/:id - Esse endpoint deverá selecionar uma coleção, por meio do parâmetro id, e excluir o registro na base de dados.
-app.delete( "/api/colecoes/:id", function( req, res){
-    const { id } = req.params;
-    const colecao = banco.selecionaColecao( id );
+GET /api/flashcards/:id- Esse endpoint deverá exibir os dados somente do flashcard selecionado, identificado pela variável id.
 
-    banco.apagar( colecao );
+POST /api/flashcards - Esse endpoint deverá criar um novo flashcard com os dados enviada pelo client, por meio do body.
 
-    res.json( banco.todasColecoes() );
-} );
+PUT /api/flashcards/:id - Esse endpoint deverá selecionar um flashcard, por meio do parâmetro id, e atualizar a mesma com os dados enviados pelo valores enviados por meio do body.
 
-// POST /api/flashcards - Esse endpoint deverá criar um novo flashcard com os dados enviada pelo client, por meio do body.
-app.post( "/api/colecoes", function( req, res ){
-    const { colecaoId, frente, verso } = req.body;
-    banco.salvar( { colecaoId, frente, verso } );
-    res.json( { descricao, publico } );
-} );
-
-// PUT /api/flashcards/:id - Esse endpoint deverá selecionar um flashcard, por meio do parâmetro id, e atualizar a mesma com os dados enviados pelo valores enviados por meio do body.
-
-// DELETE /api/flashcards/:id - Esse endpoint deverá selecionar um flashcard, por meio do parâmetro id, e excluir o registro na base de dados.
-app.delete( "/api/flashcards/:id", function( req, res){
-    const { id } = req.params;
-    const flashcard = banco.selecionaFlashCard( id );
-
-    if( !flashcard ) {
-        res.status(204).json();
-        return;
-    }else{
-        banco.apagar( flashcard );
-
-        res.json( flashcard );    
-    }
-} );
-
-
+DELETE /api/flashcards/:id - Esse endpoint deverá selecionar um flashcard, por meio do parâmetro id, e excluir o registro na base de dados.
+ */
 app.listen( 3000, function(){
     console.log('Server rodando');
 } );
