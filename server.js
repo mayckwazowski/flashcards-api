@@ -40,6 +40,42 @@ app.get( "/api/flashcards/:id", function( req, res){
 
     res.json( flashcard );
 } );
+
+// POST /api/colecoes - Esse endpoint deverá criar uma nova coleção com os dados enviada pelo client, por meio do body.
+app.post( "/api/colecoes", function( req, res ){
+    const { descricao, publico } = req.body;
+    banco.criarColecao({ descricao, publico });
+
+    res.json( { descricao, publico } );
+} );
+
+// PUT /api/colecoes/:id - Esse endpoint deverá selecionar uma coleção, por meio do parâmetro id, atualizar a 
+// mesma com os dados enviados por meio do body e salvar a coleção.
+app.put( "/api/colecoes/:id", function( req, res ){
+    const { id } = req.params;
+    const { descricao, publico } = req.body;
+    const colecao = banco.selecionaColecao( id );
+
+    colecao.descricao = descricao;
+    colecao.publico = publico;
+
+    banco.salvar( colecao );
+
+    res.json( colecao )
+} );
+
+// DELETE /api/colecoes/:id - Esse endpoint deverá selecionar uma coleção, por meio do parâmetro id, e 
+// apagar o registro na base de dados.
+app.delete( "/api/colecoes/:id", function( req, res ){
+    const { id } = req.params;
+    const colecao = banco.selecionaColecao( id );
+
+    banco.apagar(colecao);
+    res.json( { "mensagem": "coleção apagada!" } );
+
+} );
+
+
 /**
 GET /api/colecoes - Esse endpoint deverá listar todas as coleções do sistema.
 

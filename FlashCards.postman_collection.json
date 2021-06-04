@@ -88,13 +88,47 @@
 			"response": []
 		},
 		{
+			"name": "Detalhes de um flashcard",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/flashcards/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"flashcards",
+						":id"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Criar Coleções",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"descricao\": \"Portugues\",\r\n    \"publico\": true\r\n}",
+					"raw": "{\r\n    \"descricao\": \"Portugues\",\r\n    \"publico\": false\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -123,7 +157,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"colecaoId\": 3,\r\n    \"descricao\": \"Português\",\r\n    \"publico\": true\r\n}",
+					"raw": "{\r\n    \"descricao\": \"Português\",\r\n    \"publico\": false\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -131,7 +165,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/colecoes",
+					"raw": "http://localhost:3000/api/colecoes/:id",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -139,7 +173,14 @@
 					"port": "3000",
 					"path": [
 						"api",
-						"colecoes"
+						"colecoes",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "3"
+						}
 					]
 				}
 			},
@@ -160,40 +201,6 @@
 					"path": [
 						"api",
 						"colecoes",
-						":id"
-					],
-					"query": [
-						{
-							"key": "",
-							"value": null,
-							"disabled": true
-						}
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": "2"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Detalhes de um flashcard",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/api/flashcards/:id",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"api",
-						"flashcards",
 						":id"
 					],
 					"query": [
@@ -254,6 +261,15 @@
 			"request": {
 				"method": "PUT",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"frente\": \"teste\",\r\n    \"verso\": \"Isso é apenas um teste\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "http://localhost:3000/api/flashcards/:id",
 					"protocol": "http",
