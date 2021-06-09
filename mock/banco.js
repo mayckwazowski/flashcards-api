@@ -59,15 +59,20 @@ module.exports = {
     },
 
     criarFlashcard( flashcard ){
-        dados.flashcards.push({
+        const novoFlashcard = {
+            colecaoId: flashcard.colecaoId,
             flashcardId: dados.seqFlashcardId++,
             frente: flashcard.frente,
             verso: flashcard.verso,
             score: 0
-        });
+        };
+        console.log(`Criando flashcard: ${JSON.stringify( novoFlashcard )}`);
+
+        dados.flashcards.push( novoFlashcard );
     },
 
     atualizaFlashcard( flashcard ){
+        console.log(`Atualizando flashcard: ${JSON.stringify( flashcard )}`);
         const index  = dados.flashcards.findIndex( fc => fc.flashcardId == flashcard.flashcardId);
 
         if( index < 0) return;
