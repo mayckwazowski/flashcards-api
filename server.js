@@ -97,6 +97,6 @@ PUT /api/flashcards/:id - Esse endpoint deverá selecionar um flashcard, por mei
 
 DELETE /api/flashcards/:id - Esse endpoint deverá selecionar um flashcard, por meio do parâmetro id, e excluir o registro na base de dados.
  */
-app.listen( 3000, function(){
+app.listen( process.env.PORT || 3000, function(){
     console.log('Server rodando');
 } );
