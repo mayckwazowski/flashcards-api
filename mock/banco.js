@@ -84,7 +84,7 @@ module.exports = {
     apagar( entidade ){
         console.log( entidade );
         if( !entidade ) return;
-        if( entidade.score ){
+        if( entidade.flashcardId ){
             console.log(entidade);
             this.apagarFlashcard( entidade );
         }else{
@@ -93,11 +93,12 @@ module.exports = {
     },
 
     apagarColecao( colecao ){
+        console.log ( `Apagando o coleção: ${JSON.stringify( colecao )}` );
         dados.colecoes = dados.colecoes.filter(  col => col.colecaoId != colecao.colecaoId );
     },
 
     apagarFlashcard( flashcard ){
-        console.log ( flashcard );
+        console.log ( `Apagando o flashcard: ${JSON.stringify( flashcard )}` );
         dados.flashcards = dados.flashcards.filter(  fc => fc.flashcardId != flashcard.flashcardId );
     }
 }
