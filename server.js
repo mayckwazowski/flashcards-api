@@ -1,8 +1,9 @@
 const express = require("express");
 const app = express();
+const cors = require('cors')
 const banco = require("./mock/banco")
 
-
+app.use(cors())
 app.use(express.json());
 
 // GET /api/colecoes - Esse endpoint deverá listar todas as coleções do sistema.
