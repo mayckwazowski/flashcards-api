@@ -76,28 +76,44 @@ app.delete( "/api/colecoes/:id", function( req, res ){
 
 } );
 
+// POST /api/flashcards - Esse endpoint deverá criar um novo flashcard com os dados enviada pelo client, por meio do body.
+app.post( "/api/flashcards", function( req, res ){
+    const { colecaoId, frente, verso } = req.body;
 
-/**
-GET /api/colecoes - Esse endpoint deverá listar todas as coleções do sistema.
+    banco.criarFlashcard( { colecaoId, frente, verso } );
 
-GET /api/colecoes/:id - Esse endpoint deverá retornar os dados da coleção selecionada pelo parâmetro id.
+    res.json( { colecaoId, frente, verso } );
+} );
 
-GET /api/colecoes/flashcards/:id- Esse endpoint deverá listar todos os flashcards da coleção passada pelo endereço, identificado pela parâmetro id.
+// PUT /api/flashcards/:id - Esse endpoint deverá selecionar um flashcard, por meio do parâmetro id, e atualizar a mesma com os 
+// dados enviados pelo valores enviados por meio do body.
+app.put( "/api/flashcards/:id", function( req, res ){
+    const { id } = req.params;
+    const flashcard = banco.selecionaFlashCard( id );
 
-POST /api/colecoes - Esse endpoint deverá criar uma nova coleção com os dados enviada pelo client, por meio do body.
+    if( !flashcard ){
+        res.status(204).json({ "mensagem": "ok" })
+    }else{
+        const { frente, verso } = req.body;
+        flashcard.frente = frente;
+        flashcard.verso = verso;
+    
+        banco.salvar( flashcard );
+        res.json( flashcard );
+    
+    }
+} );
 
-PUT /api/colecoes/:id - Esse endpoint deverá selecionar uma coleção, por meio do parâmetro id, e atualizar a mesma com os dados enviados pelo valores enviados por meio do body.
+//DELETE /api/flashcards/:id - Esse endpoint deverá selecionar um flashcard, por meio do parâmetro id, 
+// e excluir o registro na base de dados.
+app.delete( "/api/flashcards/:id", function( req, res ){
+    const { id } = req.params;
+    const flashcard = banco.selecionaFlashCard( id );
+    banco.apagarFlashcard( flashcard );
+    res.json({ "mensagem" : "Item excluído com sucesso!"  });
+} );
 
-DELETE /api/colecoes/:id - Esse endpoint deverá selecionar uma coleção, por meio do parâmetro id, e excluir o registro na base de dados.
 
-GET /api/flashcards/:id- Esse endpoint deverá exibir os dados somente do flashcard selecionado, identificado pela variável id.
-
-POST /api/flashcards - Esse endpoint deverá criar um novo flashcard com os dados enviada pelo client, por meio do body.
-
-PUT /api/flashcards/:id - Esse endpoint deverá selecionar um flashcard, por meio do parâmetro id, e atualizar a mesma com os dados enviados pelo valores enviados por meio do body.
-
-DELETE /api/flashcards/:id - Esse endpoint deverá selecionar um flashcard, por meio do parâmetro id, e excluir o registro na base de dados.
- */
 app.listen( process.env.PORT || 3000, function(){
     console.log('Server rodando');
 } );
